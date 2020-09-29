@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {View, StyleSheet, TextInput, Button, Alert} from 'react-native'
 
-export const AddTodo = ({ onSumbit }) => { 
+export const AddTodo = ({ onSubmit }) => { 
 
     const [value, setValue] = useState('')
 
@@ -11,7 +11,6 @@ export const AddTodo = ({ onSumbit }) => {
             setValue('')
         }
            Alert.alert('Обяазательно должен быть текст! ')
-
     }
 
     return (

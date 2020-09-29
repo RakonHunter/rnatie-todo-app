@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AddTodo } from './src/AddTodo.js';
@@ -6,11 +5,7 @@ import { Navbar } from './src/Navbar.js'
 import { Todo } from './src/Todo.js'
 
 export default function App() {
-  const [todos, setTodos] = useState([
-    {id: 1, title: "Finish ToDo App"},
-    {id: 2, title: "Programming 3+ hours"},
-    {id: 3, title: "Read 20 or more pages"}
-  ])
+  const [todos, setTodos] = useState([])
 
   const addTodo = (title) => {
     const newTodo = {
@@ -33,6 +28,10 @@ export default function App() {
     }])
   }
 
+  const removeTodo = id => {
+    setTodos(prev => prev.filter(todo => todo.id !== id))
+  }
+
   return (
     <View >
       <Navbar title="Todo App" />
@@ -40,17 +39,16 @@ export default function App() {
         <AddTodo onSubmit={addTodo} />
 
         <FlatList 
+          keyExtractor={item => item.id.toString()}
           data={todos}
-          renderItem= {(item) => {
-            return <Todo todo={item} key={todo.id} />
-          }}
+          renderItem= {({item }) => <Todo todo={item} onRemove={removeTodo} />}
         />
 
-        <ScrollView>
+        {/* <ScrollView>
           {todos.map(todo => {
             return <Todo todo={todo} key={todo.id} />
           })}
-        </ScrollView>
+        </ScrollView> */}
       </View>
     </View>
   );
