@@ -1,12 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AddTodo } from './src/AddTodo.js';
 import { Navbar } from './src/Navbar.js'
 import { Todo } from './src/Todo.js'
 
 export default function App() {
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState([
+    {id: 1, title: "Finish ToDo App"},
+    {id: 2, title: "Programming 3+ hours"},
+    {id: 3, title: "Read 20 or more pages"}
+  ])
 
   const addTodo = (title) => {
     const newTodo = {
@@ -35,11 +39,18 @@ export default function App() {
       <View style={styles.container}>
         <AddTodo onSubmit={addTodo} />
 
-        <View>
+        <FlatList 
+          data={todos}
+          renderItem= {(item) => {
+            return <Todo todo={item} key={todo.id} />
+          }}
+        />
+
+        <ScrollView>
           {todos.map(todo => {
             return <Todo todo={todo} key={todo.id} />
           })}
-        </View>
+        </ScrollView>
       </View>
     </View>
   );

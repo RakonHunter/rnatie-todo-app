@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
-import {View, StyleSheet, TextInput, Button} from 'react-native'
+import {View, StyleSheet, TextInput, Button, Alert} from 'react-native'
 
 export const AddTodo = ({ onSumbit }) => { 
 
     const [value, setValue] = useState('')
 
     const pressHandler = () => {
-        onSubmit('Test todo')
+        if (value.trim()) {
+            onSubmit(value)
+            setValue('')
+        }
+           Alert.alert('Обяазательно должен быть текст! ')
+
     }
 
     return (
@@ -16,6 +21,8 @@ export const AddTodo = ({ onSumbit }) => {
                 onChangeText={text => setValue(text)}     //callback func "text" передаю в функию "setValue"
                 value={value}
                 placeholder="Введите название новой задачи..."
+                autoCorrect={false}
+                autoCapitalize={false}
                 />
             <Button title="Dobavit" onPress={pressHandler} />
         </View>
